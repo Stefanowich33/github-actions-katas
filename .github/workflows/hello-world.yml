@@ -46,7 +46,7 @@ jobs:
     - name: download jar
       uses: actions/download-artifact@v1
       with:
-        name: my.ja
+        name: my-jar
         path: .
     - name: build docker
       run: chmod +x ci/build-docker.sh && ci/build-docker.sh
