@@ -47,7 +47,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: my-jar
-        path: .
+        path: app/build/libs/app-0.1-all.jar
     - name: build docker
       run: chmod +x ci/build-docker.sh && ci/build-docker.sh
     - name: push docker
