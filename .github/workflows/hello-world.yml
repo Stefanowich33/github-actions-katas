@@ -1,7 +1,5 @@
 name: hello-world
-on:
-  push:
-    branches: [ $default-branch ]
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,4 +7,5 @@ jobs:
     steps:
       - name: my-step
         uses: actions/checkout@v2
+      - name: run
         run: ci/build-app.sh
