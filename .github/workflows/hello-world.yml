@@ -3,6 +3,7 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  GIT_COMMIT: ${{ github.sha }}
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -13,7 +14,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
+          name: code
           path: .
   build:
     runs-on: ubuntu-latest
@@ -23,7 +24,7 @@ jobs:
       - name: download code
         uses: actions/download-artifact@v2
         with:
-          name: my-artifact
+          name: code
           path: .
       - name: Build with Gradle
         run: chmod +x ci/build-app.sh && ci/build-app.sh
@@ -32,7 +33,7 @@ jobs:
       - name: Upload Repo
         uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
+          name: code
           path: . 
       - name: Upload jar
         uses: actions/upload-artifact@v2
@@ -42,6 +43,11 @@ jobs:
   Docker-image: 
     runs-on: ubunto-latest
     needs: [build]
+    - name: Login
+      uses: docker/login-action@v1
+      with:
+        username: ${{ env.docker_username }}
+        password: ${{ env.docker_password }}
     - name: build docker
       run: chmod +x ci/build-docker.sh && ci/build-docker.sh
     - name: push docker
