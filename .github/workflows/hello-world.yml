@@ -39,10 +39,10 @@ jobs:
         with:
           name: my-jar
           path: app/build/libs/app-0.1-all.jar
-    Docker-image: 
-      runs-on: ubunto-latest
-      needs: [build]
-      - name: build docker
-        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
-      - name: push docker
-        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+  Docker-image: 
+    runs-on: ubunto-latest
+    needs: [build]
+    - name: build docker
+      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+    - name: push docker
+      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
