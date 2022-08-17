@@ -1,5 +1,8 @@
 name: hello-world
 on: push
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -30,4 +33,16 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: .  
+          path: . 
+      - name: Upload jar
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-jar
+          path: app/build/libs/app-0.1-all.jar
+    Docker-image: 
+      runs-on: ubunto-latest
+      needs: [build]
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
