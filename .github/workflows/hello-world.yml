@@ -11,3 +11,13 @@ jobs:
         run: ci/build-app.sh
       - name: test
         run: ci/unit-test-app.sh
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: path/to/artifact/ 
+      - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with: 
+        name: code
+        path: . 
