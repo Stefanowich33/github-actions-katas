@@ -50,9 +50,9 @@ jobs:
       run: chmod +x ci/push-docker.sh && ci/push-docker.sh
   Component-test:
     runs-on: ubunto-latest
-    needs: [Docker-image] 
+    needs: [Docker-image]
     steps:
     - name: Execute component test
-    run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GIT_COMMIT" && ci/component-test.sh
+      run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GIT_COMMIT" && ci/component-test.sh
 
   
